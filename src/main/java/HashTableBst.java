@@ -13,8 +13,11 @@ public class HashTableBst {
             }
         }
         Set<String> wordInString = count.keySet();
-        System.out.println("Frequency In word 'To Be Or Not To Be' is");
-        for (String word:wordInString){
+        System.out.println("Frequency of words in sentence 'To be or not to be' is");
+        System.out.println("Frequency of words in sentence 'Paranoids are not paranoid because"
+                + " they are paranoid but because they keep putting themselves deliberately into"
+                + " paranoid avoidable situations' is");
+               for (String word:wordInString){
             if(count.get(word)>1){
                 System.out.println(word+ " :"+count.get(word));
             }
@@ -23,5 +26,8 @@ public class HashTableBst {
 
     public static void main(String[] args) {
         sentence("To Be Or Not To Be");
+        sentence("Paranoids are not paranoid because they are paranoid but because "
+                + "they keep putting themselves deliberately into paranoid avoidable situations");
     }
-}
+    }
+
