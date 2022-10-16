@@ -1,26 +1,68 @@
-import java.util.HashMap;
-import java.util.Set;
 public class HashTableBst {
-    public void remove(String str ,String word){
-        // split The String Using Split () method
-        String [] msg = str.split(" ");
-        String new_wrd = " ";
-        // Iterating By using for each loop
-        for(String words:msg){
-            if(!words.equals(word)){
-                new_wrd += words+" ";
+    class Node{
+      int key ;
+      Node left,right;
 
-            }
+        public Node(int item) {
+            key = item;
+            left=right = null;
         }
-        System.out.println(new_wrd);
     }
-    public static void main(String[] args) {
-        String str = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
-        // Word Remove From String Word
-      String word =  "avoidable";
-      // calling Method By passing Both String
-        HashTableBst tree = new HashTableBst();
-        tree.remove(str,word);
+    Node root;
+    // Default Constructor For Bst
+    public HashTableBst() {
+        root = null;
     }
+    void insert(int key){
+        root = insertRec(root,key);
+    }
+    Node  insertRec(Node root, int key) {
+        // if tree Is Empty , return a new Node
+        if (root == null) {
+            root = new Node(key);
+            return root;
+        }
+        // Otherwise tree is Down Tree By Recursion method
+        if (key < root.key)
+            root.left = insertRec(root.left, key);
+        if (key > root.key) ;
+        root.right = insertRec(root.right, key);
+        return root;
+
+
+    }
+    void inOrder(){
+        inOrderRec(root);
+    }
+     void inOrderRec(Node root) {
+        if(root==null){
+            return;
+        }
+        inOrderRec(root.left);
+         System.out.println(root.key);
+         inOrderRec(root.right);
+    }
+    static boolean ifNodeExits(Node root,int input){
+        if(root==null) {
+            return false;
+        }
+        if(root.key == input) {
+            return true;
+        }
+        // if check Left Subtree
+        boolean res1 = ifNodeExits(root.left,input);
+        if(res1==true){
+            return true;
+        }
+        boolean res2 = ifNodeExits(root.right,input);
+        return res2;
     }
 
+    public static void main(String[] args) {
+        HashTableBst tree = new HashTableBst();
+        tree.insert(56);
+        tree.insert(30);
+        tree.insert(70);
+        tree.inOrder();
+    }
+}
