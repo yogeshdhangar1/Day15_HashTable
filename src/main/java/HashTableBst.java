@@ -1,68 +1,44 @@
 public class HashTableBst {
-    class Node{
-      int key ;
-      Node left,right;
+    class Node {
+        int data;
+        Node left;
+        Node right;
 
-        public Node(int item) {
-            key = item;
-            left=right = null;
+        Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
         }
     }
-    Node root;
-    // Default Constructor For Bst
-    public HashTableBst() {
-        root = null;
-    }
-    void insert(int key){
-        root = insertRec(root,key);
-    }
-    Node  insertRec(Node root, int key) {
-        // if tree Is Empty , return a new Node
-        if (root == null) {
-            root = new Node(key);
-            return root;
+
+    int idx = -1;
+    public  Node createTree(int nodes[]) {
+        idx++;
+        if(nodes[idx] == -1) {
+            return null;
         }
-        // Otherwise tree is Down Tree By Recursion method
-        if (key < root.key)
-            root.left = insertRec(root.left, key);
-        if (key > root.key) ;
-        root.right = insertRec(root.right, key);
-        return root;
-
-
+        Node newNode = new Node(nodes[idx]);
+        newNode.left = createTree(nodes);
+        newNode.right = createTree(nodes);
+        return newNode;
     }
-    void inOrder(){
-        inOrderRec(root);
-    }
-     void inOrderRec(Node root) {
-        if(root==null){
+    public void inOrder(Node root) {
+        if(root == null) {
+            System.out.print(-1+" ");
             return;
         }
-        inOrderRec(root.left);
-         System.out.println(root.key);
-         inOrderRec(root.right);
-    }
-    static boolean ifNodeExits(Node root,int input){
-        if(root==null) {
-            return false;
-        }
-        if(root.key == input) {
-            return true;
-        }
-        // if check Left Subtree
-        boolean res1 = ifNodeExits(root.left,input);
-        if(res1==true){
-            return true;
-        }
-        boolean res2 = ifNodeExits(root.right,input);
-        return res2;
+        System.out.print(root.data+" ");
+        inOrder(root.left);
+        inOrder(root.right);
     }
 
     public static void main(String[] args) {
+        int nodes[] ={56, 30,22,11,3,-1,-1,16,-1,-1,-1,40,-1,
+                -1,70,60,-1,65,62,-1,-1,67,-1,-1,95,-1,-1};
         HashTableBst tree = new HashTableBst();
-        tree.insert(56);
-        tree.insert(30);
-        tree.insert(70);
-        tree.inOrder();
+        Node root = tree.createTree(nodes);
+        tree.inOrder(root);
+        System.out.println(" ");
+        System.out.println("The Value Of :"+-1+" ---------->value will be Indicates Null");
     }
 }
